@@ -1,43 +1,48 @@
 import { Link } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import PageShell from '../components/PageShell';
+import ProfileStatus from '../components/ProfileStatus';
+import { useProfile } from '../contexts/ProfileContext';
 import { colors } from '../theme/colors';
 
 export default function HomeScreen() {
+  const { profile, loading, error, reload } = useProfile();
+
   return (
     <PageShell
       eyebrow="PORTFÓLIO DIGITAL"
       title="Uma visão da minha trajetória."
       description="Formação, experiências e projetos em um só lugar."
     >
-      <View style={styles.hero}>
-        <View style={styles.avatar}>
-          <Text style={styles.avatarText}>CV</Text>
-        </View>
-        <Text style={styles.heroEyebrow}>PERFIL PROFISSIONAL</Text>
-        <Text style={styles.heroTitle}>Seu nome</Text>
-        <Text style={styles.heroDescription}>
-          Sua área de atuação e uma breve apresentação aparecerão aqui.
-        </Text>
-      </View>
+      {loading || error ? (
+        <ProfileStatus loading={loading} error={error} reload={reload} />
+      ) : (
+        <>
+          <View style={styles.hero}>
+            <View style={styles.avatar}>
+              <Text style={styles.avatarText}>CL</Text>
+            </View>
+            <Text style={styles.heroEyebrow}>DESENVOLVEDOR FULL STACK</Text>
+            <Text style={styles.heroTitle}>{profile.nome}</Text>
+            <Text style={styles.heroDescription}>{profile.resumo}</Text>
+            <Text style={styles.contact}>{profile.email}</Text>
+          </View>
 
-      <View style={styles.links}>
-        <Link href="/projetos" asChild>
-          <Pressable style={styles.primaryLink}>
-            <Text style={styles.primaryLinkText}>Explorar projetos</Text>
-            <Text style={styles.arrow}>→</Text>
-          </Pressable>
-        </Link>
-        <Link href="/sobre" asChild>
-          <Pressable style={styles.secondaryLink}>
-            <Text style={styles.secondaryLinkText}>Conhecer o perfil</Text>
-          </Pressable>
-        </Link>
-      </View>
-
-      <Text style={styles.note}>
-        Este app apresentará informações carregadas do seu backend.
-      </Text>
+          <View style={styles.links}>
+            <Link href="/projetos" asChild>
+              <Pressable style={styles.primaryLink}>
+                <Text style={styles.primaryLinkText}>Explorar projetos</Text>
+                <Text style={styles.arrow}>→</Text>
+              </Pressable>
+            </Link>
+            <Link href="/sobre" asChild>
+              <Pressable style={styles.secondaryLink}>
+                <Text style={styles.secondaryLinkText}>Conhecer o perfil</Text>
+              </Pressable>
+            </Link>
+          </View>
+        </>
+      )}
     </PageShell>
   );
 }
@@ -79,6 +84,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
   },
+  contact: {
+    marginTop: 3,
+    color: '#A6DCCE',
+    fontSize: 13,
+    fontWeight: '600',
+  },
   links: {
     gap: 10,
   },
@@ -113,11 +124,5 @@ const styles = StyleSheet.create({
     color: colors.ink,
     fontSize: 14,
     fontWeight: '700',
-  },
-  note: {
-    color: colors.muted,
-    fontSize: 12,
-    lineHeight: 18,
-    textAlign: 'center',
   },
 });

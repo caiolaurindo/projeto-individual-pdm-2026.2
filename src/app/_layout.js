@@ -1,10 +1,11 @@
 import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { colors } from '../theme/colors';
+import { ProfileProvider } from '../contexts/ProfileContext';
 
 export default function RootLayout() {
   return (
-    <>
+    <ProfileProvider>
       <StatusBar style="dark" />
       <Tabs
         screenOptions={{
@@ -29,6 +30,6 @@ export default function RootLayout() {
         <Tabs.Screen name="projetos" options={{ title: 'Projetos' }} />
         <Tabs.Screen name="sobre" options={{ title: 'Sobre' }} />
       </Tabs>
-    </>
+    </ProfileProvider>
   );
 }

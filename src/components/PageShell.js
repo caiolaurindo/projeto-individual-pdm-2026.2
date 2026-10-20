@@ -17,12 +17,13 @@ export default function PageShell({ eyebrow, title, description, children }) {
   );
 }
 
-export function InfoCard({ label, title, description }) {
+export function InfoCard({ label, title, description, children }) {
   return (
     <View style={styles.card}>
       {label ? <Text style={styles.cardLabel}>{label}</Text> : null}
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={styles.cardDescription}>{description}</Text>
+      {children}
     </View>
   );
 }
