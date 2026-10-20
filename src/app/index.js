@@ -1,128 +1,207 @@
 import { Link } from 'expo-router';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import PageShell from '../components/PageShell';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import ProfileStatus from '../components/ProfileStatus';
 import { useProfile } from '../contexts/ProfileContext';
 import { colors } from '../theme/colors';
 
+// Salve a foto enviada em assets/caio-profile.jpg e troque null por:
+// require('../../assets/caio-profile.jpg')
+const profilePhoto = null;
+
 export default function HomeScreen() {
   const { profile, loading, error, reload } = useProfile();
+  const currentRole = profile?.experiencias?.find((item) => item.emAndamento)?.cargo;
+  const location = profile?.experiencias?.find((item) => item.emAndamento)?.local;
 
   return (
-    <PageShell
-      eyebrow="PORTFÓLIO DIGITAL"
-      title="Uma visão da minha trajetória."
-      description="Formação, experiências e projetos em um só lugar."
-    >
-      {loading || error ? (
-        <ProfileStatus loading={loading} error={error} reload={reload} />
-      ) : (
-        <>
-          <View style={styles.hero}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>CL</Text>
-            </View>
-            <Text style={styles.heroEyebrow}>DESENVOLVEDOR FULL STACK</Text>
-            <Text style={styles.heroTitle}>{profile.nome}</Text>
-            <Text style={styles.heroDescription}>{profile.resumo}</Text>
-            <Text style={styles.contact}>{profile.email}</Text>
-          </View>
+    <SafeAreaView edges={['top']} style={styles.safeArea}>
+      <StatusBar style="light" />
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.topLine}>
+          <Text style={styles.kicker}>PORTFÓLIO</Text>
+          {location ? <Text style={styles.location}>{location.toUpperCase()}</Text> : null}
+        </View>
 
-          <View style={styles.links}>
-            <Link href="/projetos" asChild>
-              <Pressable style={styles.primaryLink}>
-                <Text style={styles.primaryLinkText}>Explorar projetos</Text>
-                <Text style={styles.arrow}>→</Text>
-              </Pressable>
-            </Link>
-            <Link href="/sobre" asChild>
-              <Pressable style={styles.secondaryLink}>
-                <Text style={styles.secondaryLinkText}>Conhecer o perfil</Text>
-              </Pressable>
-            </Link>
-          </View>
-        </>
-      )}
-    </PageShell>
+        {loading || error ? (
+          <ProfileStatus loading={loading} error={error} reload={reload} />
+        ) : (
+          <>
+            <View style={styles.photoFrame}>
+              {profilePhoto ? (
+                <Image
+                  source={profilePhoto}
+                  resizeMode="cover"
+                  accessibilityLabel={`Foto de ${profile.nome}`}
+                  style={styles.photo}
+                />
+              ) : (
+                <View style={styles.photoPlaceholder}>
+                  <Text style={styles.initials}>
+                    {profile.nome
+                      .split(' ')
+                      .map((part) => part[0])
+                      .slice(0, 2)
+                      .join('')}
+                  </Text>
+                  <Text style={styles.photoHint}>FOTO DE PERFIL</Text>
+                </View>
+              )}
+            </View>
+
+            <View style={styles.intro}>
+              <Text style={styles.role}>{currentRole || 'Desenvolvedor Full Stack'}</Text>
+              <Text style={styles.name}>{profile.nome}</Text>
+              <Text style={styles.summary}>{profile.resumo}</Text>
+            </View>
+
+            <View style={styles.divider} />
+
+            <View style={styles.navigation}>
+              <Link href="/projetos" asChild>
+                <Pressable style={styles.navigationLink}>
+                  <View>
+                    <Text style={styles.linkIndex}>01 / PORTFÓLIO</Text>
+                    <Text style={styles.linkTitle}>Projetos</Text>
+                  </View>
+                  <Text style={styles.arrow}>↗</Text>
+                </Pressable>
+              </Link>
+              <Link href="/profissional" asChild>
+                <Pressable style={styles.navigationLink}>
+                  <View>
+                    <Text style={styles.linkIndex}>02 / TRAJETÓRIA</Text>
+                    <Text style={styles.linkTitle}>Experiência profissional</Text>
+                  </View>
+                  <Text style={styles.arrow}>↗</Text>
+                </Pressable>
+              </Link>
+            </View>
+
+            <Text style={styles.email}>{profile.email}</Text>
+          </>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  hero: {
-    padding: 22,
-    borderRadius: 24,
-    backgroundColor: colors.hero,
-    gap: 10,
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.homeBackground,
   },
-  avatar: {
-    width: 54,
-    height: 54,
-    marginBottom: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: '#2C5A60',
+  content: {
+    paddingHorizontal: 24,
+    paddingTop: 14,
+    paddingBottom: 30,
+    gap: 22,
   },
-  avatarText: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  heroEyebrow: {
-    color: '#A6DCCE',
-    fontSize: 10,
-    fontWeight: '800',
-    letterSpacing: 1.2,
-  },
-  heroTitle: {
-    color: colors.white,
-    fontSize: 27,
-    fontWeight: '800',
-  },
-  heroDescription: {
-    color: '#D5E5E2',
-    fontSize: 14,
-    lineHeight: 21,
-  },
-  contact: {
-    marginTop: 3,
-    color: '#A6DCCE',
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  links: {
-    gap: 10,
-  },
-  primaryLink: {
-    minHeight: 54,
-    paddingHorizontal: 18,
+  topLine: {
+    minHeight: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderRadius: 16,
-    backgroundColor: colors.accent,
   },
-  primaryLinkText: {
-    color: colors.white,
-    fontSize: 14,
+  kicker: {
+    color: colors.homeMuted,
+    fontSize: 10,
     fontWeight: '700',
+    letterSpacing: 2,
   },
-  arrow: {
-    color: colors.white,
-    fontSize: 22,
+  location: {
+    color: colors.homeMuted,
+    fontSize: 10,
+    fontWeight: '600',
+    letterSpacing: 1,
   },
-  secondaryLink: {
-    minHeight: 52,
+  photoFrame: {
+    width: '100%',
+    height: 250,
+    overflow: 'hidden',
+    borderRadius: 18,
+    backgroundColor: colors.homeSurface,
+  },
+  photo: {
+    width: '100%',
+    height: '100%',
+  },
+  photoPlaceholder: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 8,
     borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 16,
-    backgroundColor: colors.surface,
+    borderColor: colors.homeBorder,
+    borderRadius: 18,
   },
-  secondaryLinkText: {
-    color: colors.ink,
-    fontSize: 14,
+  initials: {
+    color: colors.homeAccent,
+    fontSize: 56,
+    fontWeight: '600',
+    letterSpacing: -2,
+  },
+  photoHint: {
+    color: colors.homeMuted,
+    fontSize: 9,
     fontWeight: '700',
+    letterSpacing: 1.7,
+  },
+  intro: {
+    gap: 9,
+  },
+  role: {
+    color: colors.homeAccent,
+    fontSize: 12,
+    fontWeight: '600',
+    letterSpacing: 0.3,
+  },
+  name: {
+    color: colors.homeText,
+    fontSize: 34,
+    fontWeight: '700',
+    letterSpacing: -1,
+  },
+  summary: {
+    marginTop: 2,
+    color: colors.homeMuted,
+    fontSize: 14,
+    lineHeight: 22,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.homeBorder,
+  },
+  navigation: {
+    gap: 2,
+  },
+  navigationLink: {
+    minHeight: 70,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: colors.homeBorder,
+  },
+  linkIndex: {
+    color: colors.homeMuted,
+    fontSize: 9,
+    fontWeight: '700',
+    letterSpacing: 1.2,
+  },
+  linkTitle: {
+    marginTop: 5,
+    color: colors.homeText,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  arrow: {
+    color: colors.homeAccent,
+    fontSize: 20,
+  },
+  email: {
+    color: colors.homeMuted,
+    fontSize: 12,
   },
 });

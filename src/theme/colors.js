@@ -8,4 +8,10 @@ export const colors = {
   border: '#E1E9E6',
   hero: '#173A43',
   white: '#FFFFFF',
+  homeBackground: '#0C1118',
+  homeSurface: '#161E28',
+  homeBorder: '#293441',
+  homeText: '#F1F3F5',
+  homeMuted: '#A2ACB8',
+  homeAccent: '#B7C9D8',
 };

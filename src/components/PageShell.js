@@ -1,10 +1,12 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { colors } from '../theme/colors';
 
 export default function PageShell({ eyebrow, title, description, children }) {
   return (
     <SafeAreaView edges={['top']} style={styles.safeArea}>
+      <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.heading}>
           <Text style={styles.eyebrow}>{eyebrow}</Text>

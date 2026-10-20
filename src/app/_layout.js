@@ -1,20 +1,18 @@
 import { Tabs } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import { colors } from '../theme/colors';
 import { ProfileProvider } from '../contexts/ProfileContext';
 
 export default function RootLayout() {
   return (
     <ProfileProvider>
-      <StatusBar style="dark" />
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: colors.accent,
-          tabBarInactiveTintColor: colors.muted,
+          tabBarActiveTintColor: colors.homeText,
+          tabBarInactiveTintColor: colors.homeMuted,
           tabBarStyle: {
-            backgroundColor: colors.surface,
-            borderTopColor: colors.border,
+            backgroundColor: colors.homeBackground,
+            borderTopColor: colors.homeBorder,
             paddingTop: 7,
           },
           tabBarLabelStyle: {
