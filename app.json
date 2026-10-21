@@ -2,6 +2,7 @@
   "expo": {
     "name": "curriculo-app",
     "slug": "curriculo-app",
+    "owner": "caiolaurindo",
     "scheme": "curriculoapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,6 +25,12 @@
     "plugins": [
       "expo-router",
       "expo-status-bar"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e88ee2e6-1a91-4fc5-8e1a-b163613a64c7"
+      }
+    }
   }
 }
