@@ -52,9 +52,9 @@ export default function AboutScreen() {
             <TagList items={profile.habilidades?.map((item) => `${item.nome} · ${item.nivel}`)} />
           </InfoCard>
           <InfoCard
-            label="Funcionalidade extra planejada"
+            label="Funcionalidade extra implementada"
             title="Filtro de projetos por tecnologia"
-            description="A lista de tecnologias que vem em cada projeto permitirá filtrar os projetos por ferramenta ou linguagem."
+            description="Na tela Projetos, selecione uma tecnologia para ver somente os projetos que usam essa ferramenta ou linguagem."
           />
         </>
       )}
