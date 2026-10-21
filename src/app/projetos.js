@@ -18,7 +18,7 @@ export default function ProjectsScreen() {
         profile.projetos.map((item) => (
           <InfoCard
             key={item.id}
-            label="Projeto em destaque"
+            label="PROJETO"
             title={item.nome}
             description={item.descricao}
           >

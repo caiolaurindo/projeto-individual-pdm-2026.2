@@ -6,7 +6,7 @@ import { colors } from '../theme/colors';
 export default function PageShell({ eyebrow, title, description, children }) {
   return (
     <SafeAreaView edges={['top']} style={styles.safeArea}>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.heading}>
           <Text style={styles.eyebrow}>{eyebrow}</Text>
@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   content: {
-    paddingHorizontal: 22,
-    paddingTop: 22,
-    paddingBottom: 28,
-    gap: 20,
+    paddingHorizontal: 24,
+    paddingTop: 14,
+    paddingBottom: 30,
+    gap: 18,
   },
   heading: {
     gap: 9,
@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
   eyebrow: {
     color: colors.accent,
     fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 1.5,
+    fontWeight: '700',
+    letterSpacing: 2,
   },
   title: {
     color: colors.ink,
-    fontSize: 30,
-    fontWeight: '800',
+    fontSize: 32,
+    fontWeight: '700',
     letterSpacing: -0.8,
   },
   description: {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   card: {
     padding: 18,
-    borderRadius: 18,
+    borderRadius: 16,
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,

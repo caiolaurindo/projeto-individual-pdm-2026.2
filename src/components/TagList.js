@@ -22,9 +22,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   tag: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 9,
     paddingVertical: 6,
-    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 8,
     backgroundColor: colors.accentSoft,
   },
   text: {

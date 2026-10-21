@@ -31,8 +31,10 @@ const styles = StyleSheet.create({
     padding: 22,
     alignItems: 'center',
     gap: 12,
-    borderRadius: 18,
+    borderRadius: 16,
     backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   title: {
     color: colors.ink,
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 11,
     borderRadius: 12,
-    backgroundColor: colors.accent,
+    backgroundColor: '#425A6B',
   },
   buttonText: {
     color: colors.white,
