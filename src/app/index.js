@@ -6,9 +6,7 @@ import ProfileStatus from '../components/ProfileStatus';
 import { useProfile } from '../contexts/ProfileContext';
 import { colors } from '../theme/colors';
 
-// Salve a foto enviada em assets/caio-profile.jpg e troque null por:
-// require('../../assets/caio-profile.jpg')
-const profilePhoto = null;
+const profilePhoto = require('../../assets/Camisa polo 1.png');
 
 export default function HomeScreen() {
   const { profile, loading, error, reload } = useProfile();
@@ -29,25 +27,12 @@ export default function HomeScreen() {
         ) : (
           <>
             <View style={styles.photoFrame}>
-              {profilePhoto ? (
-                <Image
-                  source={profilePhoto}
-                  resizeMode="cover"
-                  accessibilityLabel={`Foto de ${profile.nome}`}
-                  style={styles.photo}
-                />
-              ) : (
-                <View style={styles.photoPlaceholder}>
-                  <Text style={styles.initials}>
-                    {profile.nome
-                      .split(' ')
-                      .map((part) => part[0])
-                      .slice(0, 2)
-                      .join('')}
-                  </Text>
-                  <Text style={styles.photoHint}>FOTO DE PERFIL</Text>
-                </View>
-              )}
+              <Image
+                source={profilePhoto}
+                resizeMode="contain"
+                accessibilityLabel={`Foto de ${profile.nome}`}
+                style={styles.photo}
+              />
             </View>
 
             <View style={styles.intro}>
@@ -117,8 +102,9 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   photoFrame: {
-    width: '100%',
-    height: 250,
+    width: 230,
+    height: 345,
+    alignSelf: 'center',
     overflow: 'hidden',
     borderRadius: 18,
     backgroundColor: colors.homeSurface,
@@ -126,27 +112,6 @@ const styles = StyleSheet.create({
   photo: {
     width: '100%',
     height: '100%',
-  },
-  photoPlaceholder: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    borderWidth: 1,
-    borderColor: colors.homeBorder,
-    borderRadius: 18,
-  },
-  initials: {
-    color: colors.homeAccent,
-    fontSize: 56,
-    fontWeight: '600',
-    letterSpacing: -2,
-  },
-  photoHint: {
-    color: colors.homeMuted,
-    fontSize: 9,
-    fontWeight: '700',
-    letterSpacing: 1.7,
   },
   intro: {
     gap: 9,
