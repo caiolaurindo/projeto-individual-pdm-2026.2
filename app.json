@@ -6,21 +6,14 @@
     "scheme": "curriculoapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#E6F4FE"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router",
@@ -31,6 +24,12 @@
       "eas": {
         "projectId": "e88ee2e6-1a91-4fc5-8e1a-b163613a64c7"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e88ee2e6-1a91-4fc5-8e1a-b163613a64c7"
     }
   }
 }
